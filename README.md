@@ -18,3 +18,8 @@ https://drive.google.com/drive/folders/1cCF5x3Hly36iifxcLRRDgv5ejgkePK1h?usp=sha
 - conda install scikit-learn scipy pandas pandas-datareader matplotlib pillow tqdm requests h5py pyyaml flask boto3 kaggle gym bayesian-optimization keras spacy
 - python -m ipykernel install --user --name tf --display-name "kernel: df"
 
+## 'model-sa' Folder
+- This folder contains:
+  - Keras Models (For CPU and GPU) (Saved as YAML Files)
+  - Keras Model Weights (For CPU and GPU) (Saved as H5 Files)
+  - Tokenizer used (as a PICKLE File)
