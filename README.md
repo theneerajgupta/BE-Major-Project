@@ -1,5 +1,8 @@
 # BEMajorProject
 
+## All Databases:
+https://drive.google.com/drive/folders/1cCF5x3Hly36iifxcLRRDgv5ejgkePK1h?usp=sharing
+
 ## System Information
 - Tensorflow-GPU v2.1.0
 - cuDNN v8.0.5 (only for devices with nvidia-gpu)
