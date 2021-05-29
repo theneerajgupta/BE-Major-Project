@@ -11,12 +11,14 @@ https://drive.google.com/drive/folders/1cCF5x3Hly36iifxcLRRDgv5ejgkePK1h?usp=sha
 ## Setting Up Miniconda
 - Install Miniconda from: https://docs.conda.io/en/latest/miniconda.html
 - conda install -y jupyter
-- conda create --name tf python=3.7
-- conda activate tf
+- conda create --name project python=3.7
+- conda activate project
 - conda install nb_conda
 - conda install tensorflow=2.1.0
 - conda install scikit-learn scipy pandas pandas-datareader matplotlib pillow tqdm requests h5py pyyaml flask boto3 kaggle gym bayesian-optimization keras spacy
-- python -m ipykernel install --user --name tf --display-name "kernel: df"
+- conda install tweepy langid langdetect nltk glob pickle
+- pip install regex collection joblib
+- python -m ipykernel install --user --name project --display-name "kernel: df"
 
 ## 'db' directory
 - Since the size of the CSV files are huge, they have been uploaded to MediaFire.
