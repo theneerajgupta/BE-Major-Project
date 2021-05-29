@@ -11,7 +11,7 @@ from nltk.stem.porter import PorterStemmer
 
 
 print("# read user timeline tweets from dataframe")
-df = pd.read_csv('db/03-user-tweets-english-only.csv' )
+df = pd.read_csv('../db/03-user-tweets-english-only.csv' )
 
 
 print("# create functions that will preprocess the dataset")
@@ -31,6 +31,14 @@ def remove_stopwords(text) :
     text = " ".join([word for word in text.split() if word not in sw])
     return text
 
+def apply_stemming(text) :
+    arr1 = text.split(" ")
+    arr2 = []
+    for word in arr1 :
+        arr2.append(porter.stem(word))
+    text = " ".join(arr2)
+    return text
+
 def preprocess_text(sen) :
     sentence = remove_tags(sen)
     sentence = sentence.lower()
@@ -39,6 +47,7 @@ def preprocess_text(sen) :
     sentence = re.sub('[^a-zA-Z]', ' ', sentence)
     sentence = remove_stopwords(sentence)
     sentence = remove_single_chars(sentence)
+    sentence = apply_stemming(sentence)
     return sentence
 
 
@@ -99,5 +108,5 @@ username = pd.DataFrame(shortlist, columns=['USER'])
 
 
 print("# saving dataframes")
-final.to_csv('db/05-shortlisted-tweets.csv', index=False)
-username.to_csv('db/05-shortlisted-usernames.csv', index=False)
+final.to_csv('../db/05-shortlisted-tweets.csv', index=False)
+username.to_csv('../db/05-shortlisted-usernames.csv', index=False)

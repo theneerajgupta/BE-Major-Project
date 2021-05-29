@@ -36,8 +36,8 @@ with open('sentiment-analysis-model/tokenizer.pickle', 'rb') as file:
     
     
 print("# loading maindata...")
-df = pd.read_csv("db/04-main-data.csv")
-rating = pd.read_csv("db/08-user-rating.csv")
+df = pd.read_csv("../db/04-main-data.csv")
+rating = pd.read_csv("../db/08-user-rating.csv")
 
 
 print("# dropping unnecessary rows...")
@@ -84,9 +84,9 @@ final = pd.DataFrame(
         pred1)),
     columns = [ 'USER', 'RATING', 'TEXT', 'ORIGINAL', 'SENTIMENT', 'OUTPUT', 'PRED1' ]
 )
-final.to_csv("db/09-phase-1-prediction.csv", index=False)
+final.to_csv("../db/09-phase-1-prediction.csv", index=False)
 
 cm = confusion_matrix(final.SENTIMENT.values.tolist(), final.PRED1.values.tolist())
 acc = accuracy_score(final.SENTIMENT.values.tolist(), final.PRED1.values.tolist())
 print("Printing Results:")
-print(f"Accuracy: {acc}")
+print(f"Accuracy: {round(acc*100, 3)}%")

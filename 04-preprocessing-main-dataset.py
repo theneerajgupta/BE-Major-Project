@@ -11,7 +11,7 @@ from nltk.stem.porter import PorterStemmer
 
 
 print("# loading '1600k-noemoticon.csv' dataset")
-df = pd.read_csv("db/1600k-noemoticon.csv", header=None)
+df = pd.read_csv("../db/1600k-noemoticon.csv", header=None)
 df.isnull().values.any()
 df.rename(
     columns = {
@@ -45,6 +45,14 @@ def remove_stopwords(text) :
     text = " ".join([word for word in text.split() if word not in sw])
     return text
 
+def apply_stemming(text) :
+    arr1 = text.split(" ")
+    arr2 = []
+    for word in arr1 :
+        arr2.append(porter.stem(word))
+    text = " ".join(arr2)
+    return text
+
 def preprocess_text(sen) :
     sentence = remove_tags(sen)
     sentence = sentence.lower()
@@ -53,6 +61,7 @@ def preprocess_text(sen) :
     sentence = re.sub('[^a-zA-Z]', ' ', sentence)
     sentence = remove_stopwords(sentence)
     sentence = remove_single_chars(sentence)
+    sentence = apply_stemming(sentence)
     return sentence
 
 
@@ -80,5 +89,5 @@ train = pd.DataFrame(df_train, columns=['USER', 'SENTIMENT', 'ORIGINAL', 'TEXT']
 
 
 print("# saving final dataframes")
-main.to_csv('db/04-main-data.csv', index=None)
-train.to_csv('db/04-train-data.csv', index=None)
+main.to_csv('../db/04-main-data.csv', index=None)
+train.to_csv('../db/04-train-data.csv', index=None)
