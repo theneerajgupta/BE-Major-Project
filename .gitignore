@@ -1,6 +1,5 @@
-#Jupyter Notebooks
-.ipynb_checkpoints
-*.csv
+# List of all the CSV Files to NOT INCLUDE
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/jupyternotebooks
 # Edit at https://www.toptal.com/developers/gitignore?templates=jupyternotebooks
