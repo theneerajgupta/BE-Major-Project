@@ -61,7 +61,7 @@ def process(endpoints):
     print(len(array))
             
     # print(f"{id} Processing Done : {yes} Tweets Detected")
-    with open(f'dataframe/{id}.txt', 'wb') as fo:
+    with open(f'buffer/{id}.txt', 'wb') as fo:
         pickle.dump(array, fo)
         print(f"Process ID {id} : Finished")
 
@@ -75,7 +75,7 @@ def main():
 
 # function to read all saved file and combine into one single dataframe
 def not_main() :
-    files = glob.glob('dataframe/*.txt')
+    files = glob.glob('buffer/*.txt')
     index = []
     for file in files:
         with open(file, 'rb') as fo:

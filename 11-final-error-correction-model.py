@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score
 from joblib import dump, load
@@ -45,30 +45,17 @@ dataset = pd.DataFrame(
         score)),
     columns = [ 'INDEX', 'USER', 'ORIGINAL', 'TEXT', 'RATING', 'OUTPUT', 'SENTIMENT', 'PRED1', 'SENT_SCORE'],
 )
-
-
-bandwidth = 0.4
-limits = [0.5 - (bandwidth/2), 0.5 + (bandwidth/2)]
-print(limits)
+dataset.to_csv('db/11-final-table.csv', index=False)
 
 
 dataset = dataset[['RATING', 'OUTPUT', 'SENT_SCORE', 'PRED1', 'SENTIMENT']]
-
-
 X = dataset[['OUTPUT', 'RATING', 'SENT_SCORE']]
 Y = dataset['SENTIMENT']
 
 
-index = list(dataset.loc[dataset['OUTPUT'] > limits[0]].loc[dataset['OUTPUT'] < limits[1]].index)
-
-
-Xerror = X.iloc[index].values.tolist()
-Yerror = Y.iloc[index].values.tolist()
-
-
-X_train, X_test, Y_train, Y_test = train_test_split(Xerror, Yerror, test_size=0.2)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
 clf = SVC()
 clf.fit(X_train, Y_train)
 pred = clf.predict(X_test)
-accuracy_score(Y_test, pred)*100
-dump(clf1, 'classification-model/clf')
+print(accuracy_score(Y_test, pred)*100)
+dump(clf, 'classification-model/clf')
