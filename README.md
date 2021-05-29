@@ -20,7 +20,9 @@ https://drive.google.com/drive/folders/1cCF5x3Hly36iifxcLRRDgv5ejgkePK1h?usp=sha
 
 ## 'db' directory
 - Since the size of the CSV files are huge, they have been uploaded to MediaFire.
-- Download all the CSV files and place them inside this directory
+- Download all the CSV files
+- Create a new directory named 'db' in the root folder
+- Paste all the CSV files in this folder
 - link: https://www.mediafire.com/folder/u9eaoxz0g6gvw/db
 
 ## 'sentiment-analysis-model' directory
