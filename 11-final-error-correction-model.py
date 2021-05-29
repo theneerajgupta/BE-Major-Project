@@ -4,9 +4,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score
 from joblib import dump, load
 
-df = pd.read_csv("../db/09-phase-1-prediction.csv")
-pos = pd.read_csv("../db/10-positive-word-score.csv")
-neg = pd.read_csv("../db/10-negative-word-score.csv")
+df = pd.read_csv("db/09-phase-1-prediction.csv")
+pos = pd.read_csv("db/10-positive-word-score.csv")
+neg = pd.read_csv("db/10-negative-word-score.csv")
 df.TEXT = df.TEXT.astype('str')
 
 
@@ -45,7 +45,7 @@ dataset = pd.DataFrame(
         score)),
     columns = [ 'INDEX', 'USER', 'ORIGINAL', 'TEXT', 'RATING', 'OUTPUT', 'SENTIMENT', 'PRED1', 'SENT_SCORE'],
 )
-dataset.to_csv('../db/11-final-table.csv', index=False)
+dataset.to_csv('db/11-final-table.csv', index=False)
 
 
 dataset = dataset[['RATING', 'OUTPUT', 'SENT_SCORE', 'PRED1', 'SENTIMENT']]
