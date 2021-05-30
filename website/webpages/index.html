@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Harnessing sentiment Analysis to Improve User Experience</title>
+<style>
+body{
+		background: #1A4E5C
+
+	}
+pre {
+/*    display: block;*/
+    font-size: 4em;
+   	margin-left: 360px;
+	margin-top:160px;
+    font-weight: bold;
+	color: #FFFFFF
+	}
+form {
+/*    display: block;*/
+
+   	margin-left: 625px;
+	margin-top:30px;
+    font-weight: bold;
+	}
+input{
+		text-align:center;
+		text-decoration: bold;
+		padding-left: 5px;
+		margin-left: -200px;
+		margin-top: 75px;
+		background:#1A4E5C;
+
+		color: #B2EBF2;
+		font-size: 25px;
+		 border-top-style: hidden;
+ 		 border-right-style: hidden;
+ 		 border-left-style: hidden;
+  border-bottom-style:solid;
+	border-bottom-color: #9AD9E9;
+	border-bottom-width:3px
+
+
+
+	}
+	button{
+		margin-top:30px;
+		margin-left: 90px;
+		background-color:#B2EBF2;
+		border:none;
+
+		font-size:24px;
+			padding: 10px;
+		width:100px
+
+	}
+::placeholder {
+  color: #B2EBF2;
+
+
+}
+
+
+</style>
+</head>
+
+<body>
+<pre>HARNESSING SENTIMENT ANALYSIS
+  TO IMPROVE USER EXPERIENCE</pre>
+<form action="{% url 'output' %}">
+	<input type="text" id="URL" name="weburl" placeholder="ENTER URL HERE" size="50"><br>
+	<button type="submit" class="btn btn-primary">GO!</button>
+</form>
+</body>
+</html>
