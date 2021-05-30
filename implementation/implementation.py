@@ -32,7 +32,7 @@ model = load_model('../sentiment-analysis-model/model-cpu.yaml', '../sentiment-a
 print("# loading the tokenizer")
 with open('../sentiment-analysis-model/tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
-    
+
 classifier = load('../classification-model/clf')
 
 consumer_key = 'e3quFb7yTv8RJBfJtcsH172ey'
@@ -47,7 +47,7 @@ try :
     print("Twitter API Ready!")
 except :
     print("Authentication Failed!")
-    
+
 class Twitter_User():
     def __init__(self,username,count=200):
         self.id = api.get_user(username).id
@@ -70,7 +70,7 @@ class Twitter_User():
     def __repr__(self):
         id = api.get_user(self.id)
         return id.screen_name
-    
+
 def process_url(url) :
     url = re.findall('http[s]?://twitter.com/(?:[a-zA-Z]|[0-9])+/status/[0-9]+', url)
     try :
@@ -80,10 +80,10 @@ def process_url(url) :
         return (user_id, tweet_id)
     except :
         return False
-    
+
 def tweet_info(url) :
     tweet = api.get_status(process_url(url)[1])
-    
+
     tweet_keys = ['created_at', 'id', 'text', 'retweet_count', 'favorite_count']
     tweet_values = []
     for key in tweet_keys :
@@ -96,7 +96,7 @@ def tweet_info(url) :
 
     tweet_info = dict(zip(tweet_keys, tweet_values))
     user_info = dict(zip(user_keys, user_values))
-    
+
     return (user_info, tweet_info)
 
 porter = PorterStemmer()
@@ -135,24 +135,24 @@ def preprocess_text(sen) :
     return sentence
 
 def calculate_rating(user_screen_name) :
-    user = Twitter_User(user_screen_name) 
+    user = Twitter_User(user_screen_name)
     tweets = list(user.get_tweets().TEXT.values.tolist())
-    
+
     # preprocess all tweets
     preprocessed = []
     for sent in tweets :
         preprocessed.append(preprocess_text(sent))
-        
+
     # tokenize and pad all tweets
     X = tokenizer.texts_to_sequences(preprocessed)
     X = pad_sequences(X, 48)
-    
+
     # predict sentiment
     pred = model.predict(X)
     prediction = []
     for value in pred :
         prediction.append(value[1])
-        
+
     # calculate rating :
     score = 0
     for value in prediction :
@@ -160,7 +160,7 @@ def calculate_rating(user_screen_name) :
             score = score - 1
         elif value > 0.7 :
             score = score + 1
-    
+
     return 0 if score < 0 else 1
 
 def calculate_sentiment(tweet) :
@@ -174,7 +174,7 @@ neg = pd.read_csv("../../db/10-negative-word-score.csv")
 lst = pos.values.tolist()
 for row in neg.values.tolist() :
     lst.append(row)
-    
+
 dictionary = dict(lst)
 
 def calculate_sent_score(text) :
@@ -183,12 +183,12 @@ def calculate_sent_score(text) :
     for word in arr :
         if word in dictionary :
             score = score + dictionary[word]
-            
+
     return 0 if score < 0 else 1
 
 
 
-if __name__ == "__main__"  :
+if __name__ == "__main__" :
     
     def predictor(url) :
         user, tweet = tweet_info(url)
@@ -202,16 +202,15 @@ if __name__ == "__main__"  :
 
         df = pd.DataFrame([[prediction, rating, score]])
         prediction = classifier.predict(df)[0]
-        
+
         print(f"USERNAME  : {user['name']}")
         print(f"USERID    : {user['screen_name']}")
         print(f"TWEET     : {tweet['text']}")
         print(f"SENTIMENT : {'POSITIVE' if prediction == 1 else 'NEGATIVE'}")
-    
+
     while True :
         print("PRESS CTRL + C TO EXIT")
         print("===============================================================")
         text = input("url >> ")
         predictor(text)
         print("===============================================================")
-        
